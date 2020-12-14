@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "experimentalDecorators": true
+  },
+  "include": [
+    "example/**/*.ts",
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "test/test.ts",
+    "test/**/*.spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }
+}

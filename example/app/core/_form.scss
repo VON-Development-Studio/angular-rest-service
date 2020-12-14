@@ -1,0 +1,40 @@
+.screen-wrapper {
+  h1 {
+    font-size: 20px;
+    line-height: 24px;
+    margin: 20px 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    line-height: 20px;
+    margin: 10px 0 20px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  .form__wrap {
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+    margin: 10px 0 20px;
+    padding: 15px 10px 10px;
+    position: relative;
+  }
+
+  .form__label {
+    background: #fff;
+    font-size: 12px;
+    line-height: 14px;
+    position: absolute;
+    top: -7px;
+    left: 8px;
+    padding: 0 4px;
+  }
+
+  .form__btn-wrapper {
+    margin: 20px 0;
+  }
+}
