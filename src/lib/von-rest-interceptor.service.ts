@@ -56,6 +56,7 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
         if (errorResponse.status === 403 || (errorResponse.url && errorResponse.url.indexOf(this.urlWhoAmI) > -1)) {
           this.router.navigate(['403']);
         }
+        this.postHttpRequest();
         return throwError(error);
       })
     );

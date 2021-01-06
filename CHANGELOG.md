@@ -1,4 +1,4 @@
-## v1.0.2
+## v1.0.4
 
 - Add callable method after http success request.
 
