@@ -21,6 +21,7 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           if (event.status === 200 || event.status === 204) {
+            this.postHttpRequest();
             return event;
           }
           if (event.status !== 200) {
@@ -34,6 +35,7 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
             throw error;
           }
         }
+        this.postHttpRequest();
         return event;
       }),
 
@@ -57,6 +59,9 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
         return throwError(error);
       })
     );
+  }
+
+  protected postHttpRequest = () => {
   }
 
 }
