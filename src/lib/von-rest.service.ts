@@ -14,7 +14,8 @@ export abstract class VonRestService {
   private setHeaders = (contentType: string = 'application/json'): HttpHeaders => {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      Accept: contentType
+      Accept: contentType,
+      'Access-Control-Allow-Origin': '*'
     });
   }
 
