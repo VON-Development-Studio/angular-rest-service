@@ -1,6 +1,6 @@
 {
   "name": "@von-development-studio/angular-rest-service",
-  "version": "2.0.0-SNAPSHOT",
+  "version": "2.0.4-SNAPSHOT",
   "description": "Angular Rest Service wrapper.",
   "repository": {
     "type": "git",

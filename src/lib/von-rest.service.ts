@@ -23,24 +23,42 @@ export abstract class VonRestService {
     });
   };
 
-  protected setOptions = (headerParams?: HeaderParams): VonHttpOptionsModel => {
-    return {
+  protected setOptions = ({
+    headerParams,
+    params,
+  }: {
+    headerParams?: HeaderParams;
+    params?: GenericParams;
+  }): VonHttpOptionsModel => {
+    const options: VonHttpOptionsModel = {
       headers: this.setHeaders(headerParams),
-      params: headerParams?.params,
+      params: params,
       withCredentials: true,
     };
+    if (headerParams?.responseType) {
+      options.responseType = headerParams.responseType;
+    }
+    return options;
   };
 
-  protected setOptionsForFile = (
-    headerParams?: HeaderParams
-  ): VonHttpOptionsModel => {
-    return {
-      ...this.setOptions(headerParams?.params),
+  protected setOptionsForFile = ({
+    headerParams,
+    params,
+  }: {
+    headerParams?: HeaderParams;
+    params?: GenericParams;
+  }): VonHttpOptionsModel => {
+    const options: VonHttpOptionsModel = {
+      ...this.setOptions({ headerParams, params }),
       headers: new HttpHeaders({
         Accept: headerParams?.accept ?? 'application/json',
         'Access-Control-Allow-Origin': '*',
       }),
     };
+    if (headerParams?.responseType) {
+      options.responseType = headerParams.responseType;
+    }
+    return options;
   };
 
   protected setUrlParams = (url: string, params?: GenericParams) => {
@@ -54,7 +72,7 @@ export abstract class VonRestService {
     return url;
   };
 
-  protected authenticate = (
+  authenticate = (
     url: string,
     username: string,
     password: string
@@ -71,24 +89,26 @@ export abstract class VonRestService {
       .pipe(take(1), share());
   };
 
-  protected get = <R = any>({
+  get = <R = any>({
     url,
     urlParams,
     params,
+    header: headerParams,
   }: GetParams): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
-    return this.http.get<R>(url, this.setOptions(params));
+    return this.http.get<R>(url, this.setOptions({ headerParams, params }));
   };
 
-  protected file = ({
+  file = ({
     url,
     urlParams,
     params,
+    header: headerParams,
   }: GetParams): Observable<SafeResourceUrl> => {
     url = this.setUrlParams(url, urlParams);
     return this.http
       .get(url, {
-        ...this.setOptionsForFile(params),
+        ...this.setOptionsForFile({ headerParams, params }),
         responseType: 'blob' as 'json',
       })
       .pipe(
@@ -102,54 +122,58 @@ export abstract class VonRestService {
       );
   };
 
-  protected delete = <R = any>({
+  delete = <R = any>({
     url,
     urlParams,
     params,
+    header: headerParams,
   }: DeleteParams): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
-    return this.http.delete<R>(url, this.setOptions(params));
+    return this.http.delete<R>(url, this.setOptions({ headerParams, params }));
   };
 
-  protected post = <R = any, B = any | FormData>({
+  post = <R = any, B = any | FormData>({
     url,
     body,
     urlParams,
     params,
+    header: headerParams,
   }: PostParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     let options =
-      body instanceof FormData
-        ? this.setOptionsForFile(params)
-        : this.setOptions(params);
+      body && body instanceof FormData
+        ? this.setOptionsForFile({ headerParams, params })
+        : this.setOptions({ headerParams, params });
     return this.http.post<R>(url, body, options);
   };
 
-  protected put = <R = any, B = any | FormData>({
+  put = <R = any, B = any | FormData>({
     url,
     body,
     urlParams,
     params,
+    header: headerParams,
   }: PutParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     let options =
-      body instanceof FormData
-        ? this.setOptionsForFile(params)
-        : this.setOptions(params);
+      body && body instanceof FormData
+        ? this.setOptionsForFile({ headerParams, params })
+        : this.setOptions({ headerParams, params });
     return this.http.put<R>(url, body, options);
   };
 
-  protected patch = <R = any, B = any | FormData>({
+  patch = <R = any, B = any | FormData>({
     url,
     body,
     urlParams,
     params,
+    header: headerParams,
   }: PutParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     let options =
-      body instanceof FormData
-        ? this.setOptionsForFile(params)
-        : this.setOptions(params);
+      body && body instanceof FormData
+        ? this.setOptionsForFile({ headerParams, params })
+        : this.setOptions({ headerParams, params });
     return this.http.patch<R>(url, body, options);
   };
 }
