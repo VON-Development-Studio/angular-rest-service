@@ -1,54 +1,27 @@
-# Angular Rest Service
+# NpmNgRestService
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.18.
 
-## Installing
+## Development server
 
-1. Add NPM package into your project:
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-  ```node
-  npm install @von-development-studio/angular-rest-service --save
-  ```
+## Code scaffolding
 
-2. Create your rest service file _**RestService**_
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-  ```typescript
-  ...
-  import { VonRestService } from '@von-development-studio/angular-rest-service';
-  ...
+## Build
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class RestService extends VonRestService {
-    constructor(
-      protected http: HttpClient,
-      protected sanitizer: DomSanitizer
-    ) {
-      super(http, sanitizer);
-    }
-  }
-  ```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-2. Create your rest interceptor service file _**RestInterceptorService**_
+## Running unit tests
 
-  ```typescript
-  ...
-  import { VonRestInterceptorService } from '@von-development-studio/angular-rest-service';
-  ...
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class RestInterceptorService extends VonRestInterceptorService {
-    constructor(
-      protected router: Router
-    ) {
-      super(router);
-    }
-  }
-  ```
+## Running end-to-end tests
 
-<hr>
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-###### _[By Von Development Studio](https://www.von-development-studio.com/)_
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
