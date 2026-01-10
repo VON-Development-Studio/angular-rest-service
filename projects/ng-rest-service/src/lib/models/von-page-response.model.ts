@@ -1,3 +1,6 @@
+/**
+ * @deprecated Define this model in the solution
+ */
 export interface VonPageResponseModel<T> {
   content: T[];
   last: boolean;

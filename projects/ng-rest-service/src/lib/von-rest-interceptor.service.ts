@@ -1,8 +1,15 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { VonErrorRestInterceptorModel } from './model/von-error-rest-interceptor.model';
+import { VonErrorRestInterceptorModel } from './models/von-error-rest-interceptor.model';
 
 export abstract class VonRestInterceptorService implements HttpInterceptor {
   protected consoleDebug = false;
@@ -14,8 +21,13 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
 
   constructor(protected router: Router) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(request).pipe(map(this.mapEvent), catchError(this.catchError));
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next
+      .handle(request)
+      .pipe(map(this.mapEvent), catchError(this.catchError));
   }
 
   protected postHttpRequest = () => {};
@@ -54,10 +66,15 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
       error.message = this.errorResponseUnknown;
     }
     if (errorResponse.status === 401) {
-      error.message = errorResponse.error ? errorResponse.error : this.errorResponseForbidden;
+      error.message = errorResponse.error
+        ? errorResponse.error
+        : this.errorResponseForbidden;
     }
     if (this.redirectOn403) {
-      if (errorResponse.status === 403 || (errorResponse.url && errorResponse.url.indexOf(this.urlWhoAmI) > -1)) {
+      if (
+        errorResponse.status === 403 ||
+        (errorResponse.url && errorResponse.url.indexOf(this.urlWhoAmI) > -1)
+      ) {
         this.router.navigate(this.redirect403Url);
       }
     }
