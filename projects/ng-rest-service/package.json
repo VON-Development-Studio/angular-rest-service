@@ -1,6 +1,6 @@
 {
   "name": "@von-development-studio/angular-rest-service",
-  "version": "19.2.0",
+  "version": "20.3.0",
   "description": "Angular Rest Service wrapper.",
   "repository": {
     "type": "git",
@@ -8,14 +8,14 @@
   },
   "keywords": [
     "angular",
-    "angular 19",
+    "angular 20",
     "rest client"
   ],
   "author": "Luis García Castro",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0"
   },
   "dependencies": {
     "tslib": "^2.4.0"
