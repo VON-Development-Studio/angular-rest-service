@@ -1,5 +1,9 @@
 _Read this in other language: [Spanish](https://github.com/VON-Development-Studio/angular-rest-service/blob/snapshot/CHANGELOG.es.md)_
 
+## v19.2.0
+
+- Add support to Angular v19.
+
 ## v18.2.0
 
 - Add support to Angular v18.
