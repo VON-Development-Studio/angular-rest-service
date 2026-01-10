@@ -7,24 +7,6 @@
       "command": "yarn start",
       "request": "launch",
       "type": "node-terminal"
-    },
-    {
-      "name": "Build package",
-      "command": "yarn build:lib",
-      "request": "launch",
-      "type": "node-terminal"
-    },
-    {
-      "name": "Publish snaphot",
-      "command": "yarn publish:snapshot",
-      "request": "launch",
-      "type": "node-terminal"
-    },
-    {
-      "name": "Publish release",
-      "command": "yarn publish:rel",
-      "request": "launch",
-      "type": "node-terminal"
     }
   ]
 }
