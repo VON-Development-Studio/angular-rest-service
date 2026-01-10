@@ -15,9 +15,6 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
   protected consoleDebug = false;
   protected errorResponseUnknown = 'Unknown Error';
   protected errorResponseForbidden = 'Forbidden Error';
-  protected urlWhoAmI = 'api/who-am-i';
-  protected redirectOn403 = true;
-  protected redirect403Url = ['403'];
 
   constructor(protected router: Router) {}
 
@@ -30,11 +27,11 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
       .pipe(map(this.mapEvent), catchError(this.catchError));
   }
 
-  protected postHttpRequest = () => {};
-
   protected mapEvent = (event: HttpEvent<any>) => {
     if (event instanceof HttpResponse) {
       if (event.status === 200 || event.status === 204) {
+        this.executeBeforePipesOnSuccess();
+        // TODO: Remove this call
         this.postHttpRequest();
         return event;
       }
@@ -70,6 +67,9 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
         ? errorResponse.error
         : this.errorResponseForbidden;
     }
+
+    this.execute403Redirect();
+    // TODO: Remove all this section.
     if (this.redirectOn403) {
       if (
         errorResponse.status === 403 ||
@@ -78,7 +78,52 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
         this.router.navigate(this.redirect403Url);
       }
     }
+    this.execute403Redirect();
+
+    this.executeBeforePipesOnError();
+    // TODO: Remove this call
     this.postHttpRequest();
     return throwError(error);
   };
+
+  /**
+   * Execute custom implementation before any other pipe from the subscription.
+   */
+  protected executeBeforePipesOnSuccess = () => {};
+
+  /**
+   * Execute custom implementation before any other pipe from the subscription.
+   */
+  protected executeBeforePipesOnError = () => {};
+
+  /**
+   * Execute custom implementation to redirect to 403 page based on a specific condition.
+   */
+  protected execute403Redirect = () => {};
+
+  // ****
+  // ****
+  // ****
+  // TODO: Remove all below this line
+  // ****
+
+  /**
+   * @deprecated Use the new custom method execute403Redirect() to trigger redirect to 403. This property is marked to be removed.
+   * TODO: Remove this property
+   */
+  protected urlWhoAmI = 'api/who-am-i';
+  /**
+   * @deprecated Use the new custom method execute403Redirect() to trigger redirect to 403. This property is marked to be removed.
+   * TODO: Remove this property
+   */
+  protected redirectOn403 = true;
+  /**
+   * @deprecated Use the new custom method execute403Redirect() to trigger redirect to 403. This property is marked to be removed.
+   * TODO: Remove this property
+   */
+  protected redirect403Url = ['403'];
+  /**
+   * @deprecated Use either executeBeforePipesOnSuccess() or executeBeforePipesOnError() base on your case. This method is marked to be removed.
+   */
+  protected postHttpRequest = () => {};
 }
