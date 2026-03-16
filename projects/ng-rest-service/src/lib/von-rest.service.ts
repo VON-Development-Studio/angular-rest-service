@@ -91,7 +91,7 @@ export abstract class VonRestService {
     return url;
   };
 
-  protected authenticate = (
+  authenticate = (
     url: string,
     username: string,
     password: string
@@ -108,7 +108,7 @@ export abstract class VonRestService {
       .pipe(take(1), share());
   };
 
-  protected get = <R = any>({
+  get = <R = any>({
     url,
     urlParams,
     queryParams: params,
@@ -132,7 +132,7 @@ export abstract class VonRestService {
     );
   };
 
-  protected delete = <R = any>({
+  delete = <R = any>({
     url,
     urlParams,
     queryParams: params,
@@ -156,7 +156,7 @@ export abstract class VonRestService {
     );
   };
 
-  protected post = <R = any, B = GenericParams | FormData>({
+  post = <R = any, B = GenericParams | FormData>({
     url,
     body,
     urlParams,
@@ -183,7 +183,7 @@ export abstract class VonRestService {
     return this.http.post<R>(url, body, options);
   };
 
-  protected put = <R = any, B = GenericParams | FormData>({
+  put = <R = any, B = GenericParams | FormData>({
     url,
     body,
     urlParams,
@@ -210,7 +210,7 @@ export abstract class VonRestService {
     return this.http.put<R>(url, body, options);
   };
 
-  protected patch = <R = any, B = GenericParams | FormData>({
+  patch = <R = any, B = GenericParams | FormData>({
     url,
     body,
     urlParams,
@@ -237,7 +237,7 @@ export abstract class VonRestService {
     return this.http.patch<R>(url, body, options);
   };
 
-  protected file = ({
+  file = ({
     url,
     urlParams,
     queryParams: params,
