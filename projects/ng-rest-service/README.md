@@ -1,6 +1,6 @@
 # Angular Rest Service
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.13.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
 
 ## Installing
 

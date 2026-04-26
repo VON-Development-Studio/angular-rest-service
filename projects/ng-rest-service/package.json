@@ -1,21 +1,21 @@
 {
   "name": "@von-development-studio/angular-rest-service",
-  "version": "20.3.0",
+  "version": "21.0.0",
   "description": "Angular Rest Service wrapper.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/VON-Development-Studio/angular-rest-service"
+    "url": "git+https://github.com/VON-Development-Studio/angular-rest-service.git"
   },
   "keywords": [
     "angular",
-    "angular 20",
+    "angular 21",
     "rest client"
   ],
   "author": "Luis García Castro",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^20.3.0",
-    "@angular/core": "^20.3.0"
+    "@angular/common": "^21.2.10",
+    "@angular/core": "^21.2.10"
   },
   "dependencies": {
     "tslib": "^2.4.0"

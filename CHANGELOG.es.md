@@ -1,5 +1,9 @@
 _Leer en otro idioma: [Inglés](https://github.com/VON-Development-Studio/angular-rest-service/blob/snapshot/CHANGELOG.md)_
 
+## v21.0.0
+
+- Agrega soporte a la versión 21 de Angular.
+
 ## v20.3.0
 
 - Agrega soporte a la versión 20 de Angular.
