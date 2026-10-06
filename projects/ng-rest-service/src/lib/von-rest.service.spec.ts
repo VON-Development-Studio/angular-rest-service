@@ -1,4 +1,4 @@
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withXhr } from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting,
@@ -11,7 +11,10 @@ import { VonHttpOptionsModel } from './models/von-http-options.model';
 
 @Injectable()
 class VonRestServiceHelper extends VonRestService {
-  constructor(override http: HttpClient, override sanitizer: DomSanitizer) {
+  constructor(
+    override http: HttpClient,
+    override sanitizer: DomSanitizer,
+  ) {
     super(http, sanitizer);
   }
 }
@@ -24,7 +27,7 @@ describe('Von Rest Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         VonRestServiceHelper,
         {
@@ -248,8 +251,12 @@ describe('Von Rest Service', () => {
 
     const rest = service['file']({ url });
 
-    rest.subscribe((response: any) => {
-      expect(response).toEqual({
+    rest.subscribe(async (response: any) => {
+      const blobResponse = await fetch(response);
+      const blobData = await blobResponse.blob();
+      const blobText = await blobData.text();
+      const data = JSON.parse(blobText);
+      expect(data).toEqual({
         ...restResponse,
         method: 'GET',
       });
@@ -257,6 +264,9 @@ describe('Von Rest Service', () => {
 
     const req = httpTestingController.expectOne('/api/test/file');
     expect(req.request.method).toEqual('GET');
-    req.flush({ status: 200, method: 'GET' });
+
+    const mockData = JSON.stringify({ status: 200, method: 'GET' });
+    const mockBlob = new Blob([mockData], { type: 'application/json' });
+    req.flush(mockBlob);
   });
 });

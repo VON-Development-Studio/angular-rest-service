@@ -31,12 +31,10 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "browsers": ["chromium"],
             "tsConfig": "projects/ng-rest-service/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "providersFile": "projects/ng-rest-service/src/test-providers.ts",
+            "runnerConfig": true,
+            "browsers": ["chromiumHeadless"]
           }
         }
       }
@@ -58,9 +56,7 @@
             "outputPath": "dist/example",
             "index": "projects/example/src/index.html",
             "browser": "projects/example/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/example/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -69,9 +65,7 @@
                 "input": "projects/example/public"
               }
             ],
-            "styles": [
-              "projects/example/src/styles.scss"
-            ],
+            "styles": ["projects/example/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -116,23 +110,10 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "browsers": ["chromium"],
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
             "tsConfig": "projects/example/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/example/public"
-              }
-            ],
-            "styles": [
-              "projects/example/src/styles.scss"
-            ],
-            "scripts": []
+            "providersFile": "projects/example/src/test-providers.ts",
+            "runnerConfig": true,
+            "browsers": ["chromiumHeadless"]
           }
         }
       }

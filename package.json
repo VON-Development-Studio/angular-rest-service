@@ -18,7 +18,9 @@
     "build": "ng build",
     "build:lib": "ng build --configuration production ng-rest-service",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test ng-rest-service",
+    "test:demo": "ng test example",
+    "test:ci": "ng test ng-rest-service --no-watch --no-progress",
     "publish:rel": "cd dist/ng-rest-service && npm publish --tag latest --access public",
     "publish:snapshot": "cd dist/ng-rest-service && npm publish --tag snapshot --access public"
   },
@@ -41,10 +43,12 @@
     "@angular/cdk": "^22.2.1",
     "@angular/cli": "^22.2.1",
     "@angular/compiler-cli": "^22.2.1",
-    "@types/jasmine": "~5.1.0",
     "@vitest/browser-playwright": "^5.0.3",
-    "jsdo": "^4.3.12",
+    "@vitest/browser-preview": "^5.0.3",
+    "istanbul-lib-instrument": "^6.0.3",
+    "jsdom": "^30.1.2",
     "ng-packagr": "^22.2.4",
+    "playwright": "^1.63.0",
     "typescript": "6.0.3",
     "vitest": "^5.0.3"
   }
