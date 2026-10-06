@@ -11,4 +11,6 @@ export interface VonHttpOptionsModel {
   reportProgress?: boolean;
   responseType?: 'json';
   withCredentials?: boolean;
+  reportUploadProgress?: boolean;
+  reportDownloadProgress?: boolean;
 }
