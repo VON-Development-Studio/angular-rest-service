@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -11,11 +12,6 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "paths": {
-      "ng-rest-service": [
-        "./dist/ng-rest-service"
-      ]
-    },
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
@@ -23,12 +19,31 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "@von-ds/ng-rest-service": [
+        "projects/ng-rest-service/src/public-api.ts"
+      ],
+      "@von-ds/ng-rest-service/*": [
+        "projects/ng-rest-service/src/lib/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/ng-rest-service/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ng-rest-service/tsconfig.spec.json"
+    }
+  ]
 }

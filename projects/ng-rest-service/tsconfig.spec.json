@@ -6,10 +6,22 @@
     "outDir": "../../out-tsc/spec",
     "types": [
       "jasmine"
-    ]
+    ],
+    "composite": true,
+    "inlineSources": true,
+    "declaration": true
   },
   "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.ts"
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }
