@@ -9,15 +9,6 @@ export interface BaseParams {
   urlParams?: GenericParams;
   queryParams?: GenericParams;
   headerParams?: HeaderParams;
-
-  /**
-   * @deprecated Use headerParams instead
-   */
-  header?: HeaderParams;
-  /**
-   * @deprecated Use queryParams instead
-   */
-  params?: GenericParams;
 }
 
 export type BodyParams<B = GenericParams | FormData> = BaseParams & {

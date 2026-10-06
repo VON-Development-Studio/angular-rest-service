@@ -17,7 +17,10 @@ import {
  * @DomSanitizer
  */
 export abstract class VonRestService {
-  constructor(protected http: HttpClient, protected sanitizer: DomSanitizer) {}
+  constructor(
+    protected http: HttpClient,
+    protected sanitizer: DomSanitizer,
+  ) {}
 
   /**
    * Allows to set the default headers
@@ -94,7 +97,7 @@ export abstract class VonRestService {
   authenticate = (
     url: string,
     username: string,
-    password: string
+    password: string,
   ): Observable<any> => {
     const authorization = btoa(`${username}:${password}`);
     const headers = new HttpHeaders({
@@ -111,48 +114,32 @@ export abstract class VonRestService {
   get = <R = any>({
     url,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BaseParams): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     return this.http.get<R>(
       url,
       this.setOptions({
-        headerParams: {
-          ...headerParams,
-          ...oldHeaderParams,
-        },
-        queryParams: {
-          ...params,
-          ...oldParams,
-        },
-      })
+        headerParams,
+        queryParams,
+      }),
     );
   };
 
   delete = <R = any>({
     url,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BaseParams): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     return this.http.delete<R>(
       url,
       this.setOptions({
-        headerParams: {
-          ...headerParams,
-          ...oldHeaderParams,
-        },
-        queryParams: {
-          ...params,
-          ...oldParams,
-        },
-      })
+        headerParams,
+        queryParams,
+      }),
     );
   };
 
@@ -160,21 +147,13 @@ export abstract class VonRestService {
     url,
     body,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BodyParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     const optionsParams = {
-      headerParams: {
-        ...headerParams,
-        ...oldHeaderParams,
-      },
-      queryParams: {
-        ...params,
-        ...oldParams,
-      },
+      headerParams,
+      queryParams,
     };
     let options =
       body && body instanceof FormData
@@ -187,21 +166,13 @@ export abstract class VonRestService {
     url,
     body,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BodyParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     const optionsParams = {
-      headerParams: {
-        ...headerParams,
-        ...oldHeaderParams,
-      },
-      queryParams: {
-        ...params,
-        ...oldParams,
-      },
+      headerParams,
+      queryParams,
     };
     let options =
       body && body instanceof FormData
@@ -214,21 +185,13 @@ export abstract class VonRestService {
     url,
     body,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BodyParams<B>): Observable<R> => {
     url = this.setUrlParams(url, urlParams);
     const optionsParams = {
-      headerParams: {
-        ...headerParams,
-        ...oldHeaderParams,
-      },
-      queryParams: {
-        ...params,
-        ...oldParams,
-      },
+      headerParams,
+      queryParams,
     };
     let options =
       body && body instanceof FormData
@@ -240,34 +203,28 @@ export abstract class VonRestService {
   file = ({
     url,
     urlParams,
-    queryParams: params,
+    queryParams,
     headerParams,
-    header: oldHeaderParams,
-    params: oldParams,
   }: BaseParams): Observable<SafeResourceUrl> => {
     url = this.setUrlParams(url, urlParams);
     return this.http
       .get(url, {
         ...this.setOptionsForFile({
-          headerParams: {
-            ...headerParams,
-            ...oldHeaderParams,
-          },
-          queryParams: {
-            ...params,
-            ...oldParams,
-          },
+          headerParams,
+          queryParams,
         }),
         responseType: 'blob' as 'json',
       })
       .pipe(
         map((res: any) => {
-          const fileBlob = new Blob([res], { type: params?.['contentType'] });
+          const fileBlob = new Blob([res], {
+            type: queryParams?.['contentType'],
+          });
           const objUrl = URL.createObjectURL(fileBlob);
           const sanitized =
             this.sanitizer.bypassSecurityTrustResourceUrl(objUrl);
           return sanitized;
-        })
+        }),
       );
   };
 }
