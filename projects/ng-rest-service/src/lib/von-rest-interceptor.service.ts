@@ -18,13 +18,8 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
 
   constructor(protected router: Router) {}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
-    return next
-      .handle(request)
-      .pipe(map(this.mapEvent), catchError(this.catchError));
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(request).pipe(map(this.mapEvent), catchError(this.catchError));
   }
 
   /**
@@ -52,8 +47,7 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
           console.error('[ErrorWS]: ', error);
         }
 
-        const err = new Error(JSON.stringify(error));
-        throw err;
+        throw error;
       }
     }
 
@@ -84,19 +78,15 @@ export abstract class VonRestInterceptorService implements HttpInterceptor {
     }
 
     if (errorResponse.status === 401) {
-      error.message = errorResponse.error
-        ? errorResponse.error
-        : this.errorResponseForbidden;
+      error.message = errorResponse.error ? errorResponse.error : this.errorResponseForbidden;
     }
 
-    const err = new Error(JSON.stringify(error));
+    this.executeBeforePipesOnError(error);
 
-    this.executeBeforePipesOnError(err);
-
-    return throwError(() => err);
+    return throwError(() => error);
   };
 
   protected executeBeforePipesOnSuccess = () => {};
 
-  protected executeBeforePipesOnError = (err: Error) => {};
+  protected executeBeforePipesOnError = (err: VonErrorRestInterceptorModel) => {};
 }
